@@ -50,7 +50,7 @@ jobs:
                   core.setOutput('base_ref', prDetails.data.base.ref);
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
             - name: check
               id: check
               uses: actions/github-script@v7
@@ -98,7 +98,7 @@ jobs:
                       console.log( 'releaseBranch:', releaseBranch )
                       console.log( 'version:', version )
                       console.log( 'pr:', pr )
-    
+
                       core.setOutput( 'pr', pr )
                       core.setOutput( 'version', version )
                       core.setOutput( 'release', releaseBranch )
@@ -139,18 +139,6 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Git fetch the release branch
-              run: git fetch origin trunk
-
-            - name: Checkout release branch
-              run: git checkout trunk
-
-            - name: Create a cherry pick branch based on trunk branch
-              run: git checkout -b cherry-pick-$RELEASE_BRANCH/$PR
-              env:
-                RELEASE_BRANCH: ${{ needs.prep.outputs.release }}
-                PR: ${{ needs.prep.outputs.pr }}
-
             - name: Get commit sha from PR
               id: commit-sha
               uses: actions/github-script@v7
@@ -163,20 +151,23 @@ jobs:
                       })
 
                       core.setOutput( 'sha', pr.data.merge_commit_sha )
+                      core.setOutput( 'head', pr.data.head.sha )
+                      core.setOutput( 'head_branch', pr.data.head.ref )
               env:
                 PR: ${{ needs.prep.outputs.pr }}
 
             - name: Cherry pick
               run: |
-                  git cherry-pick $SHA -m1
+                  git fetch origin trunk
+                  git checkout $SHA
+                  git switch -c cherry-pick-$RELEASE_BRANCH/$PR
+                  git push origin cherry-pick-$RELEASE_BRANCH/$PR
               env:
                 SHA: ${{ steps.commit-sha.outputs.sha }}
-
-            - name: Push cherry pick branch up
-              run: git push origin cherry-pick-$RELEASE_BRANCH/$PR
-              env:
                 RELEASE_BRANCH: ${{ needs.prep.outputs.release }}
                 PR: ${{ needs.prep.outputs.pr }}
+                HEAD_SHA: ${{ steps.commit-sha.outputs.head_sha }}
+                HEAD_REF: ${{ steps.commit-sha.outputs.head_ref }}
 
             - name: Create the PR for cherry pick branch
               id: cherry-pick-pr
