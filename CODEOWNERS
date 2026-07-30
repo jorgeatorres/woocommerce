@@ -11,8 +11,6 @@
 /packages/js/e2e-utils-playwright/ @nerrad
 
 # Files in root of repository
-/.* @nerrad
-/*.* @nerrad
 /changelog.txt
 /pnpm-lock.yaml
 
