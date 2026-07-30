@@ -7,7 +7,7 @@ module.exports = function ( grunt ) {
 		dirs: {
 			css: 'css',
 			// Write directly to the plugin's `assets/css` so PHP enqueues
-			// from the final location with no intermediate rsync step.
+			// from the final location with no intermediate rsync step. XXX.
 			cssDest: '../../assets/css',
 			fonts: 'assets/fonts',
 			images: 'assets/images',
