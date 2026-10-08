@@ -170,7 +170,7 @@ WooCommerce comes with some sample data you can use to see how products look; im
 
 == Changelog ==
 
-= 11.2.0-rc.1 2026-XX-XX =
+= 11.2.0-rc.1 2026-10-08 =
 
 **WooCommerce**
 
@@ -400,6 +400,11 @@ WooCommerce comes with some sample data you can use to see how products look; im
 * Fix - Restore support for other file types (e.g. PDFs) in product galleries. [#68992](https://github.com/woocommerce/woocommerce/pull/68992)
 * Fix - Show product blocks, such as Product Collection, in sent emails built with the block email editor. [#69107](https://github.com/woocommerce/woocommerce/pull/69107)
 * Fix - Treat a shipping address missing required fields as incomplete, even when an extension changes the default address settings. [#69127](https://github.com/woocommerce/woocommerce/pull/69127)
+* Fix - Fixed a fatal error in persistent product status counters during background revision save in the admin when a null value was dispatched instead of a post object. [#69234](https://github.com/woocommerce/woocommerce/pull/69234)
+* Fix - Keep enforcing a coupon's minimum spend when its saved maximum spend is lower, as earlier versions did. [#69242](https://github.com/woocommerce/woocommerce/pull/69242)
+* Fix - Keep price separators as plain text in the Store API and block settings. [#69244](https://github.com/woocommerce/woocommerce/pull/69244)
+* Fix - Show each KOMOJU payment method's own name and description on the Payments settings page, instead of identical rows. [#69175](https://github.com/woocommerce/woocommerce/pull/69175)
+* Fix - Update the classic checkout totals after an address change when an extension hides a required address field. [#69333](https://github.com/woocommerce/woocommerce/pull/69333)
 * Add - Add an "Automatic updates" column to the My Subscriptions screen that turns auto-updates on or off for installed extensions and themes, and shows "Blocked" when they are on but something else stops the product updating [#68410](https://github.com/woocommerce/woocommerce/pull/68410)
 * Add - Add an "Awaiting confirmation" section to the Stock notifications My Account tab, listing unconfirmed sign-ups with Resend email and Cancel actions above the active notifications table. [#68295](https://github.com/woocommerce/woocommerce/pull/68295)
 * Add - Add an $orderby argument to wc_get_product_category_list() and order single-product meta categories by hierarchy. Stores on the stock single-product/meta.php template now render categories ancestor-first; return an empty string from woocommerce_product_meta_category_orderby to restore WordPress term-list order. [#67633](https://github.com/woocommerce/woocommerce/pull/67633)
