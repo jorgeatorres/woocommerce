@@ -12,6 +12,7 @@ declare( strict_types = 1 );
 
 if ( is_admin() ) {
 	require_once get_template_directory() . '/inc/woocommerce-compatibility.php';
+	return false;
 }
 
 if ( ! function_exists( 'purple_hide_store_templates_from_template_picker' ) ) :
